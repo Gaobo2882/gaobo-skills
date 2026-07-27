@@ -1,0 +1,4 @@
+# 不进仓库的杂项
+.DS_Store
+*.tmp
+__pycache__/
