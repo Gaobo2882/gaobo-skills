@@ -9,8 +9,12 @@
 ```
 gaobo-skills/
 ├── README.md
-└── skill-template/        # 新建 skill 时复制这个模板
-    └── SKILL.md
+├── skill-template/        # 新建 skill 时复制这个模板
+│   └── SKILL.md
+└── gaobo-writing-coach/   # 高博专属写作教练（书本方法论 + 个人风格融合）
+    ├── SKILL.md
+    ├── references/         # style-profile / diagnostic-rubric / writing-methodology
+    └── assets/             # prompt-template（可复制独立 prompt）
 ```
 
 ## 怎么安装一个 skill（下载/换电脑）
@@ -37,3 +41,7 @@ cp -r gaobo-skills/skill-template <项目>/.workbuddy/skills/你的技能名
 ## 防重名
 
 公开的 skill 仓库里同名会互相覆盖，个人 skill 一律用 `gaobo-` 前缀最省心。
+
+## 已收录 skill
+
+- **gaobo-writing-coach**：高博（莫何AI学习笔记）专属写作教练。融合《写作是门手艺》方法论（谜题/变量/树形/读者/反馈 + 10 维打分诊断）与高博 59 篇作品的个人风格指纹（4 骨架/标题公式/钩子/声音禁区），并固化了几次关键纠偏。说"写文章/诊断文章/按我的风格写"即触发。
