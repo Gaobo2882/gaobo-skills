@@ -11,6 +11,8 @@ gaobo-skills/
 ├── README.md
 ├── skill-template/        # 新建 skill 时复制这个模板
 │   └── SKILL.md
+├── gaobo-ai-media-skill/  # 公众号「莫何AI学习笔记」全流程手册（选题→成稿→配图→排版→推送草稿箱）
+│   └── SKILL.md
 └── gaobo-writing-coach/   # 高博专属写作教练（书本方法论 + 个人风格融合）
     ├── SKILL.md
     ├── references/         # style-profile / diagnostic-rubric / writing-methodology
@@ -44,4 +46,5 @@ cp -r gaobo-skills/skill-template <项目>/.workbuddy/skills/你的技能名
 
 ## 已收录 skill
 
+- **gaobo-ai-media-skill**（AI自媒体全流程手册）：公众号「莫何AI学习笔记」全流程工作手册，持续迭代（当前 v1.6，修订 2026-09-20）。覆盖选题 → 成稿 → 配图 → 排版 → 推送草稿箱全链路，含选题四标准、8 维打分流水线、写法规范、配图铁律与图文匹配三问、身份隐身红线、禁用套话清单、交付前 15 项检查清单。触发词「**高博的AI自媒体**」。源文件：腾讯文档《AI自媒体skill 1.6》。
 - **gaobo-writing-coach**：高博（莫何AI学习笔记）专属写作教练。融合《写作是门手艺》方法论（谜题/变量/树形/读者/反馈 + 10 维打分诊断）与高博 59 篇作品的个人风格指纹（4 骨架/标题公式/钩子/声音禁区），并固化了几次关键纠偏。说"写文章/诊断文章/按我的风格写"即触发。
