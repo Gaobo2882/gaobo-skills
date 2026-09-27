@@ -1,0 +1,4 @@
+interface:
+  display_name: "故事型口播"
+  short_description: "记录所学所感，保留真实态度与个人声音，用自然口播分享成长心得"
+  default_prompt: "请用 $story-first-koubo，帮我把素材整理成自然、有趣的口播稿，保留我的真实态度；如果我已提供原稿，优先轻编辑，不磨淡观点，不刻意说教或营销。"
