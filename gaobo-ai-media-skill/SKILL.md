@@ -3,10 +3,10 @@ name: gaobo-ai-media-skill
 id: gaobo-ai-media-skill
 slug: gaobo-ai-media-skill
 displayName: AI自媒体全流程手册（高博的AI自媒体）
-description: 高博公众号「莫何AI学习笔记」全流程工作手册，持续迭代（当前 v1.8.2，修订 2026-09-27）。覆盖选题（先拉 AI 最新讯息 → 挖素材矿 → 三方独立打分）→ 成稿 → 配图 → 排版 → 推送草稿箱全链路，含 AI 最新讯息输入源（aihot / AI HOT 只读 API）、零自绘图铁律（正文一切图形只许真实截图，禁自绘 SVG / AI 生成图）、封面分层精修（AI 生成插画 + PIL 精确叠字，禁再用色块）、选题四标准、8维打分流水线、高博风格画像、写法规范、配图铁律与图文匹配三问、身份隐身红线、禁用套话清单、专精工具推荐规范、排版校验与推草稿箱流程（含推送目录匹配规则与 token 预检）、skill 迭代与线上同步纪律（含三条推送通路与 browser-skill 掉线处置）。只要高博说「选题」，就必须先加载本手册。触发词：选题、选题扫描、今天写什么、高博的AI自媒体、高博的AI自媒体手册、公众号选题、写公众号稿、配图、排版、封面、封面太丑、推草稿箱、图文不匹配、这篇怎么写、选题怎么选。
+description: 高博公众号「莫何AI学习笔记」全流程工作手册，持续迭代（当前 v1.8.3，修订 2026-09-27）。覆盖选题（先拉 AI 最新讯息 → 挖素材矿 → 三方独立打分）→ 成稿 → 配图 → 排版 → 推送草稿箱全链路，含 AI 最新讯息输入源（aihot / AI HOT 只读 API）、零自绘图铁律（正文一切图形只许真实截图，禁自绘 SVG / AI 生成图）、封面分层精修（AI 生成插画 + PIL 精确叠字，禁再用色块）、选题四标准、8维打分流水线、高博风格画像、写法规范、配图铁律与图文匹配三问、身份隐身红线、禁用套话清单、专精工具推荐规范、排版校验与推草稿箱流程（含推送目录匹配规则与 token 预检）、skill 迭代与线上同步纪律（含三条推送通路与 browser-skill 掉线处置）。只要高博说「选题」，就必须先加载本手册。触发词：选题、选题扫描、今天写什么、高博的AI自媒体、高博的AI自媒体手册、公众号选题、写公众号稿、配图、排版、封面、封面太丑、推草稿箱、图文不匹配、这篇怎么写、选题怎么选。
 summary: 公众号「莫何AI学习笔记」全流程工作手册，持续迭代：选题（含 AI 最新讯息输入）→ 成稿 → 配图 → 排版（含封面分层精修）→ 推送草稿箱，及线上同步纪律（三条通路）。
 agent_created: true
-version: 1.8.2
+version: 1.8.3
 updated: 2026-09-27
 category: 写作辅助
 platforms: [workbuddy, claude, cursor, codex, windsurf, gemini, copilot, openclaw]
@@ -18,7 +18,7 @@ platforms: [workbuddy, claude, cursor, codex, windsurf, gemini, copilot, opencla
 
 > 🔴 **只要高博说「选题」「选题扫描」「今天写什么」，必须立刻加载并执行本手册，不用他每次提醒。** 选题第一步永远是 **§1.0 拉 AI 最新讯息**，不许凭记忆、不许沿用上次的素材池出候选。
 
-**当前版本**：1.8.2｜**修订日期**：2026-09-27｜**基础**：1.8.1 + **线上同步三条通路**（§0.2 改写）
+**当前版本**：1.8.3｜**修订日期**：2026-09-27｜**基础**：1.8.2 + **PAT 通路跑通并落盘**（§0.2 订正）
 
 > **本技能持续迭代**：技能名固定为「AI自媒体全流程手册」（触发词「高博的AI自媒体」），**不带版本号**；版本只在 frontmatter 的 `version` 字段与文末「版本沿革」节递增。升版时更新腾讯文档原件 + 本文件 + **线上仓库**（见 §0.2），**不新建技能**。
 
@@ -79,13 +79,24 @@ platforms: [workbuddy, claude, cursor, codex, windsurf, gemini, copilot, opencla
 403 Resource not accessible by integration
 ```
 
-（判据：错误说 `by integration` = App 令牌；PAT 会明说 `by personal access token`。）本机也**没有 git 仓库、没有 `.git-credentials`、没有环境变量 PAT**，没有本地退路。
+（判据：错误说 `by integration` = App 令牌；PAT 会明说 `by personal access token`。）
+
+**✅ 2026-09-27 晚已跑通（通路① 生效）**：高博给了一次 classic PAT（`repo` 权限），已存到 **`_gh_dl/pat.txt`**，脚本会自动读它。**以后升版直接跑下面这一条就行，不用再问高博要凭据**：
+
+```bash
+cd "D:\AI数据\workbuddy\高博的AI自媒体运营\_gh_dl"
+"C:\Users\Administrator\AppData\Local\Programs\Python\Python312\python.exe" push_to_github.py
+```
+
+跑完会打印「回读校验」六项（字节数一致 + 5 个锚点 + README 版本号），**六项全 ✅ 才算同步成功**，以脚本输出为准，不靠猜。首次跑通：线上 `6cfc3154…`（v1.6，16794 B）→ `6dd05d34…`（v1.8.2，43456 B）。
+
+> **token 纪律**：PAT 明文存在 `_gh_dl/pat.txt`（只有 `repo` 一个 scope）。**任何时候不要把它的值写进本手册、记忆文件或聊天记录**，只记路径。若高博要收权，让他去 github.com/settings/tokens 撤销，并把 `pat.txt` 删掉。
 
 **真正能用的三条通路，按可靠性排序**：
 
 | # | 通路 | 怎么做 | 稳定性 |
 |:---:|---|---|---|
-| ① | **classic PAT + 脚本**（首选） | 高博给一次 PAT（勾 `repo`），跑 `_gh_dl/push_to_github.py <PAT>`，**自带回读校验**（比字节数 + 查 5 个锚点） | ★★★ 一次性配好可长期复用 |
+| ① | **classic PAT + 脚本**（✅ 已生效，默认走这条） | 凭据已在 `_gh_dl/pat.txt`，直接跑 `_gh_dl/push_to_github.py`，**自带回读校验**（比字节数 + 查 5 个锚点 + README 版本） | ★★★ 已配好，长期复用 |
 | ② | **浏览器直传** | 用 `browser-skill` 驱动已登录的浏览器打开 `github.com/<owner>/<repo>/edit/<branch>/<path>`，粘贴 + Commit | ★★ 依赖扩展在线 |
 | ③ | **手动粘贴**（兜底） | 把内容写进**系统剪贴板**，让高博开 edit 页 → `Ctrl+A` → `Ctrl+V` → Commit | ★★★ 纯人工，30 秒 |
 
@@ -524,6 +535,7 @@ Set-Clipboard -Value ([System.IO.File]::ReadAllText($p, [System.Text.Encoding]::
 - **1.8.0** **AI 最新讯息输入源立节**（§1.0）：把 2026-08-19 定下的「选题先查最新 AI 动态」正式写进手册（此前只存在于记忆，手册查不到），含 `aihot` 入口表、精选池空转全量池、四条纪律（不凭记忆答新闻 / 数字回原文核 / 动态≠选题 / 国产优先）与「时效输入」输出形态；同时补入 2026-09-06 确立的**三条输入源**与**视角三问**。新增 **§0.2 迭代与线上同步纪律**（改本地必须同步三副本 + 线上仓库，403 卡点如实上报不许谎报）。frontmatter 触发词新增 `选题`。起因：高博要求「选题 skill 里要加 AI 最新讯息的版块，并同步线上仓库」
 - **1.8.1** **frontmatter `name` 订正**：`name` 由中文「AI自媒体全流程手册」改回**文件夹名** `gaobo-ai-media-skill`（中文名只留 `displayName`）。起因：高博报"界面上找不见这个技能"，排查时发现运行时取 `skill.name = frontmatter.name || 文件夹名`，而 `skillOverrides` 按 `skill.name` 记账 —— 两者不一致会让界面的「隐藏 / 仅用户可调用」开关记不上、点了不生效（issue #73690）。§0.2 新增「命名硬规则」表 + 界面显示名取值说明（`displayName ?? id`，改 `name` 不影响中文显示）。
 - **1.8.2** **§0.2 线上同步改写为"三条通路"**：① 明确 GitHub 连接器是 **GitHub Copilot 托管 MCP**，权限 GitHub 侧固定，**"让高博去补 Contents 读写权限"是错建议，已删除** —— 只能走 **classic PAT**；② 补入浏览器直传通路与 `browser-skill` 掉线处置（**`bsk` 必须绕沙箱、输出重定向到文件**，daemon 版本漂移会踢掉扩展，`bsk daemon stop` + `BSK_AUTO_UPDATE=off bsk daemon start` 稳 daemon 后仍需人工点扩展重连）；③ 补入手动粘贴通路与一行剪贴板命令。起因：高博重新登录后实测，403 依旧。
+- **1.8.3** **PAT 通路跑通，线上首次同步成功**：高博给的 classic PAT（`repo` scope）已存到 `_gh_dl/pat.txt`，`push_to_github.py` 增「读同目录 pat.txt」与 token 前缀自检，跑通并回读全绿 —— 线上 `6cfc3154…`（v1.6，16794 B）→ `6dd05d34…`（v1.8.2，43456 B），README 第 49 行同步。订正 1.8.2 里"本机没有 PAT、没有本地退路"的过期表述，并把 §0.2 的"以后升版怎么推"写成可直接照抄的一条命令 + token 纪律（只记路径、不记值）。起因：高博给 PAT 后实测通过。
 
 **旧版不删，后续迭代继续升号。**
 
