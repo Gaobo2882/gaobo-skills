@@ -3,10 +3,10 @@ name: gaobo-ai-media-skill
 id: gaobo-ai-media-skill
 slug: gaobo-ai-media-skill
 displayName: AI自媒体全流程手册（高博的AI自媒体）
-description: 高博公众号「莫何AI学习笔记」全流程工作手册，持续迭代（当前 v1.8.3，修订 2026-09-27）。覆盖选题（先拉 AI 最新讯息 → 挖素材矿 → 三方独立打分）→ 成稿 → 配图 → 排版 → 推送草稿箱全链路，含 AI 最新讯息输入源（aihot / AI HOT 只读 API）、零自绘图铁律（正文一切图形只许真实截图，禁自绘 SVG / AI 生成图）、封面分层精修（AI 生成插画 + PIL 精确叠字，禁再用色块）、选题四标准、8维打分流水线、高博风格画像、写法规范、配图铁律与图文匹配三问、身份隐身红线、禁用套话清单、专精工具推荐规范、排版校验与推草稿箱流程（含推送目录匹配规则与 token 预检）、skill 迭代与线上同步纪律（含三条推送通路与 browser-skill 掉线处置）。只要高博说「选题」，就必须先加载本手册。触发词：选题、选题扫描、今天写什么、高博的AI自媒体、高博的AI自媒体手册、公众号选题、写公众号稿、配图、排版、封面、封面太丑、推草稿箱、图文不匹配、这篇怎么写、选题怎么选。
+description: 高博公众号「莫何AI学习笔记」全流程工作手册，持续迭代（当前 v1.8.4，修订 2026-09-28）。覆盖选题（先拉 AI 最新讯息 → 挖素材矿 → 三方独立打分）→ 成稿 → 配图 → 排版 → 推送草稿箱全链路，含 AI 最新讯息输入源（aihot / AI HOT 只读 API）、零自绘图铁律（正文一切图形只许真实截图，禁自绘 SVG / AI 生成图）、封面分层精修（AI 生成插画 + PIL 精确叠字，禁再用色块）、选题四标准、8维打分流水线、高博风格画像、写法规范、配图铁律与图文匹配三问、身份隐身红线、禁用套话清单、专精工具推荐规范、排版校验与推草稿箱流程（含推送目录匹配规则与 token 预检）、skill 迭代与线上同步纪律（含三条推送通路与 browser-skill 掉线处置）。只要高博说「选题」，就必须先加载本手册。触发词：选题、选题扫描、今天写什么、高博的AI自媒体、高博的AI自媒体手册、公众号选题、写公众号稿、配图、排版、封面、封面太丑、推草稿箱、图文不匹配、这篇怎么写、选题怎么选。
 summary: 公众号「莫何AI学习笔记」全流程工作手册，持续迭代：选题（含 AI 最新讯息输入）→ 成稿 → 配图 → 排版（含封面分层精修）→ 推送草稿箱，及线上同步纪律（三条通路）。
 agent_created: true
-version: 1.8.3
+version: 1.8.4
 updated: 2026-09-27
 category: 写作辅助
 platforms: [workbuddy, claude, cursor, codex, windsurf, gemini, copilot, openclaw]
@@ -18,7 +18,7 @@ platforms: [workbuddy, claude, cursor, codex, windsurf, gemini, copilot, opencla
 
 > 🔴 **只要高博说「选题」「选题扫描」「今天写什么」，必须立刻加载并执行本手册，不用他每次提醒。** 选题第一步永远是 **§1.0 拉 AI 最新讯息**，不许凭记忆、不许沿用上次的素材池出候选。
 
-**当前版本**：1.8.3｜**修订日期**：2026-09-27｜**基础**：1.8.2 + **PAT 通路跑通并落盘**（§0.2 订正）
+**当前版本**：1.8.4｜**修订日期**：2026-09-28｜**基础**：1.8.3 + **§1.0 补两个实现坑**（时区 / 出网）
 
 > **本技能持续迭代**：技能名固定为「AI自媒体全流程手册」（触发词「高博的AI自媒体」），**不带版本号**；版本只在 frontmatter 的 `version` 字段与文末「版本沿革」节递增。升版时更新腾讯文档原件 + 本文件 + **线上仓库**（见 §0.2），**不新建技能**。
 
@@ -177,6 +177,23 @@ Set-Clipboard -Value ([System.IO.File]::ReadAllText($p, [System.Text.Encoding]::
 2. **数字、政策、原话回第三方原文核对**才许写进候选（金额红线照旧：多源不一致就不出数字）。
 3. **动态 ≠ 选题**。AI HOT 只提供「今天能干成哪件事的时机」，选题本身要问"我自己 / 带读者能做成哪件事"（见 §1.1 末尾的视角三问）。**光有一条新闻、没有可照做的动作，不是选题。**
 4. **国产优先**。国外模型刷屏（GPT / Claude 系）不进候选池，按高博「尽量用国产工具，尽量不推国外工具」红线排除，但在榜里注明「本轮未用」，让高博知道动态全貌。
+
+**两个实现坑（2026-09-28 实测，下次直接照做）**：
+
+1. **本机 Python312 没有 `tzdata`**，`zoneinfo.ZoneInfo("Asia/Shanghai")` 会直接抛 `ZoneInfoNotFoundError`。**转北京时间别用它**，改用固定偏移：`from datetime import timezone, timedelta` + `tz = timezone(timedelta(hours=8))`。
+2. **中文关键字必须走 `urllib.parse.quote`**，且要强制 IPv4 + 绕开系统代理（本机代理会干扰出网）——照抄下面这段就能用：
+
+   ```python
+   import json, socket, urllib.request
+   _o = socket.getaddrinfo
+   socket.getaddrinfo = lambda h,p,f=0,t=0,pr=0,fl=0: _o(h,p,socket.AF_INET,t,pr,fl)
+   op = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+   req = urllib.request.Request(url)
+   req.add_header("User-Agent", "aihot-skill/1.1.2 (+https://aihot.virxact.com/aihot-skill/)")
+   data = json.loads(op.open(req, timeout=45).read().decode("utf-8"))
+   ```
+
+> 实测再次印证：**`mode=selected` 对国产冷门产品的覆盖很差**——2026-09-28 那轮，豆包 / 智谱 / 即梦 / 剪映 在精选池**全部返回空**，换 `mode=all` 才有内容。**"精选池空转全量池"这条不能省。**
 
 **输出形态（硬性）**：候选池文件里必须有一节叫「时效输入」，形如：
 
@@ -536,6 +553,7 @@ Set-Clipboard -Value ([System.IO.File]::ReadAllText($p, [System.Text.Encoding]::
 - **1.8.1** **frontmatter `name` 订正**：`name` 由中文「AI自媒体全流程手册」改回**文件夹名** `gaobo-ai-media-skill`（中文名只留 `displayName`）。起因：高博报"界面上找不见这个技能"，排查时发现运行时取 `skill.name = frontmatter.name || 文件夹名`，而 `skillOverrides` 按 `skill.name` 记账 —— 两者不一致会让界面的「隐藏 / 仅用户可调用」开关记不上、点了不生效（issue #73690）。§0.2 新增「命名硬规则」表 + 界面显示名取值说明（`displayName ?? id`，改 `name` 不影响中文显示）。
 - **1.8.2** **§0.2 线上同步改写为"三条通路"**：① 明确 GitHub 连接器是 **GitHub Copilot 托管 MCP**，权限 GitHub 侧固定，**"让高博去补 Contents 读写权限"是错建议，已删除** —— 只能走 **classic PAT**；② 补入浏览器直传通路与 `browser-skill` 掉线处置（**`bsk` 必须绕沙箱、输出重定向到文件**，daemon 版本漂移会踢掉扩展，`bsk daemon stop` + `BSK_AUTO_UPDATE=off bsk daemon start` 稳 daemon 后仍需人工点扩展重连）；③ 补入手动粘贴通路与一行剪贴板命令。起因：高博重新登录后实测，403 依旧。
 - **1.8.3** **PAT 通路跑通，线上首次同步成功**：高博给的 classic PAT（`repo` scope）已存到 `_gh_dl/pat.txt`，`push_to_github.py` 增「读同目录 pat.txt」与 token 前缀自检，跑通并回读全绿 —— 线上 `6cfc3154…`（v1.6，16794 B）→ `6dd05d34…`（v1.8.2，43456 B），README 第 49 行同步。订正 1.8.2 里"本机没有 PAT、没有本地退路"的过期表述，并把 §0.2 的"以后升版怎么推"写成可直接照抄的一条命令 + token 纪律（只记路径、不记值）。起因：高博给 PAT 后实测通过。
+- **1.8.4** **§1.0 补「两个实现坑」**：① 本机 Python312 缺 `tzdata`，`zoneinfo` 转北京时间会直接报错，改用 `timezone(timedelta(hours=8))`；② 拉 AI HOT 必须强制 IPv4 + 绕开系统代理，并给出可直接照抄的请求片段。同时把「`mode=selected` 对国产冷门产品覆盖很差、必须空转 `mode=all`」从纪律升级为**实测印证过的硬提示**（9/28 那轮豆包 / 智谱 / 即梦 / 剪映在精选池全部为空）。起因：9/28 执行选题时踩到这两个坑。
 
 **旧版不删，后续迭代继续升号。**
 
